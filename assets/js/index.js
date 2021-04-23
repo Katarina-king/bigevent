@@ -1,16 +1,27 @@
 $(function () {
-    getUserInfo()
+    getUserInfo();
+    //退出
+    $('.exit').on('click', function () {
+        layer.confirm('确定退出登录?', { icon: 3, title: '提示' }, function (index) {
+            localStorage.removeItem('token');
+            location.href = '/login.html'
+            layer.close(index);
+        });
+    })
 })
+//获取用户信息
 function getUserInfo() {
     $.ajax({
         method: 'GET',
         url: '/my/userinfo',
         success: function (res) {
             if (res.status != 0) {
-                return layer.msg(res.message)
+                // location.href = './login.html'
+                return layer.msg(res.message);
             }
             renderAvatar(res.data);
-        }
+        },
+
     })
 }
 

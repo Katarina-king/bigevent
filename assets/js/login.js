@@ -5,6 +5,9 @@ $(function () {
     $('#link_login').on('click', function () {
         $('.reg-form').hide().siblings('.login-form').show()
     })
+
+
+
 })
 
 layui.form.verify({
@@ -40,13 +43,20 @@ $('.login-form').on('submit', function (e) {
         username: $('.reg-form [name=username]').val(),
         password: $('.reg-form [name=password]').val()
     }
-    $.post('/api/login', $(this).serialize(), function (res) {
-        if (res.status != 0) {
-            return layer.msg(res.message);
+    $.ajax({
+        method: 'POST',
+        url: '/api/login',
+        data: $(this).serialize(),
+        success: function (res) {
+            if (res.status != 0) {
+                return layer.msg(res.message);
+            }
+            layer.msg('登录成功');
+            localStorage.setItem('token', res.token)
+            location.href = './index.html'
         }
-        layer.msg('登录成功');
-        localStorage.setItem('token', res.token)
-        console.log();
-        location.href = './index.html'
+
     })
 })
+
+//退出
