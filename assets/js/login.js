@@ -47,6 +47,6 @@ $('.login-form').on('submit', function (e) {
         layer.msg('登录成功');
         localStorage.setItem('token', res.token)
         console.log();
-        location.href = '/inedx.html'
+        location.href = './index.html'
     })
 })
